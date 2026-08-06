@@ -1,0 +1,20 @@
+include:
+  - langfuse/docker-compose.yml
+
+services:
+  dungeon-game:
+    # build: .
+    image: khanhlinh02/dungeon-master:latest
+    container_name: ai-dungeon-game
+    restart: "no"
+    depends_on:
+      - langfuse-web
+    environment:
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - LANGFUSE_HOST=http://langfuse-web:3000
+      - LANGFUSE_PUBLIC_KEY=${LANGFUSE_PUBLIC_KEY}
+      - LANGFUSE_SECRET_KEY=${LANGFUSE_SECRET_KEY}
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/app
