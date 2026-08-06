@@ -12,7 +12,6 @@ The system is fully containerized using Docker and follows an Agentic workflow m
 **LangGraph for State Management:** Instead of using a standard sequential LangChain pipeline, LangGraph was chosen to create a cyclic agent. This allows the LLM to autonomously decide when to speak to the player and when to trigger internal game tools.
 
 **Deterministic Tool Calling:** 
-
 Critical game states (like inventory, current_location, and memory_flags) are explicitly decoupled from the LLM's conversational memory. The LLM must invoke specific tools (update_inventory, change_location) to modify the game world. This prevents the LLM from "hallucinating" items the player doesn't have.
 
 **Dual Logging Strategy:** The application implements a clear separation of concerns for logging:
@@ -28,9 +27,9 @@ Critical game states (like inventory, current_location, and memory_flags) are ex
 **Sequential Interaction:** The application expects synchronous turn-based interaction (Player types -> AI processes -> AI responds).
 
 ## 4. Trade-offs
-Context Window vs. Cost (The Memory Problem):
+**Context Window vs. Cost (The Memory Problem):**
 
-Trade-off: We are currently appending all historical messages to the State. This provides maximum story coherence. However, as the conversation grows, the token count per request increases linearly, which can lead to hitting Groq's Rate Limits (429 errors) and increased latency.
+Trade-off: I'm currently appending all historical messages to the State. This provides maximum story coherence. However, as the conversation grows, the token count per request increases linearly, which can lead to hitting Groq's Rate Limits (429 errors) and increased latency.
 
 ## 5. What I would improve if I had another day
 
